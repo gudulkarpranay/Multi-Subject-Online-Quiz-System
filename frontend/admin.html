@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Quiz | Admin Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+    <div class="container slide-up">
+        <header class="quiz-header">
+            <div>
+                <h1 style="margin-bottom: 0;">Admin Panel</h1>
+                <p class="text-muted">Manage Subjects and Questions</p>
+            </div>
+            <div>
+                <button id="dashboardBtn" class="btn btn-secondary" style="width: auto;"><i class="fas fa-home"></i> Back to Dashboard</button>
+            </div>
+        </header>
+
+        <div class="subject-grid" style="grid-template-columns: 1fr; gap: 1rem;">
+            <!-- Form to Add Question -->
+            <div class="glass-card">
+                <h3><i class="fas fa-plus-circle" style="color: var(--success);"></i> Add New Question</h3>
+                <hr style="border: 1px solid rgba(255,255,255,0.1); margin: 1rem 0;">
+                
+                <form id="addQuestionForm">
+                    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <select id="qSubject" required>
+                                <option value="" disabled selected>Select Subject</option>
+                                <option value="CN">Computer Networks (CN)</option>
+                                <option value="OS">Operating Systems (OS)</option>
+                                <option value="WDL">Web Dev Lab (WDL)</option>
+                                <option value="AOA">Analysis of Alg (AOA)</option>
+                                <option value="EVS">Environmental Science (EVS)</option>
+                                <option value="IoT">Internet of Things (IoT)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Question Text</label>
+                            <input type="text" id="qText" placeholder="Enter the question here..." required>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Option 1 (A)</label>
+                            <input type="text" id="qOpt1" placeholder="Option 1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Option 2 (B)</label>
+                            <input type="text" id="qOpt2" placeholder="Option 2" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Option 3 (C)</label>
+                            <input type="text" id="qOpt3" placeholder="Option 3" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Option 4 (D)</label>
+                            <input type="text" id="qOpt4" placeholder="Option 4" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Correct Answer</label>
+                        <select id="qAnswer" required>
+                            <option value="" disabled selected>Select the correct answer</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn" style="max-width: 200px;"><i class="fas fa-save"></i> Save Question</button>
+                    <span id="saveStatus" style="margin-left: 1rem; font-weight: bold; color: var(--success); display: none;">Saved Successfully!</span>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

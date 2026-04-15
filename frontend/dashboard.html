@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Quiz | Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+    <div class="container slide-up">
+        <header class="quiz-header">
+            <div>
+                <h1 style="margin-bottom: 0;">Dashboard</h1>
+                <p class="text-muted" id="welcomeText">Welcome back, Student!</p>
+            </div>
+            <div>
+                <button id="adminBtn" class="btn btn-secondary hidden" style="margin-right: 1rem;"><i class="fas fa-cog"></i> Admin Panel</button>
+                <button id="logoutBtn" class="btn" style="width: auto;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </header>
+
+        <!-- Quote of the day (Fetch API implementation) -->
+        <div class="quote-section glass-card" id="quoteContainer">
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;"><i class="fas fa-lightbulb" style="color: #f59e0b;"></i> Inspiration</h3>
+            <p id="quoteText">Loading inspiration...</p>
+            <small id="quoteAuthor" class="text-muted"></small>
+        </div>
+
+        <h2 style="margin-top: 2rem;">Select a Subject</h2>
+        
+        <div class="subject-grid">
+            <div class="glass-card subject-card" data-subject="CN">
+                <div class="subject-icon"><i class="fas fa-network-wired"></i></div>
+                <h3>Computer Networks</h3>
+                <p class="text-muted">Test your knowledge on protocols and networking.</p>
+            </div>
+            
+            <div class="glass-card subject-card" data-subject="OS">
+                <div class="subject-icon"><i class="fas fa-microchip"></i></div>
+                <h3>Operating Systems</h3>
+                <p class="text-muted">CPU scheduling, memory management, and more.</p>
+            </div>
+            
+            <div class="glass-card subject-card" data-subject="WDL">
+                <div class="subject-icon"><i class="fas fa-code"></i></div>
+                <h3>Web Dev Lab</h3>
+                <p class="text-muted">HTML, CSS, JS, PHP, and Web technologies.</p>
+            </div>
+            
+            <div class="glass-card subject-card" data-subject="AOA">
+                <div class="subject-icon"><i class="fas fa-project-diagram"></i></div>
+                <h3>Analysis of Alg.</h3>
+                <p class="text-muted">Time complexity, paths, and search algorithms.</p>
+            </div>
+
+            <div class="glass-card subject-card" data-subject="EVS">
+                <div class="subject-icon"><i class="fas fa-leaf"></i></div>
+                <h3>Environmental Sci.</h3>
+                <p class="text-muted">Ecology, sustainability, and green initiatives.</p>
+            </div>
+
+            <div class="glass-card subject-card" data-subject="IoT">
+                <div class="subject-icon"><i class="fas fa-server"></i></div>
+                <h3>Internet of Things</h3>
+                <p class="text-muted">Sensors, MQTT, embedded systems, and connectivity.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

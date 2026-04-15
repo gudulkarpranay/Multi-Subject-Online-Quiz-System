@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Quiz</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body style="display: none;"> <!-- Hidden initially for fade-in effect -->
+
+    <!-- AJAX Loader -->
+    <div class="loader-container" id="ajaxLoader">
+        <div style="text-align: center;">
+            <div class="spinner text-center" style="margin: 0 auto 1rem auto;"></div>
+            <p>Fetching questions... <br><small class="text-muted">Loading via AJAX</small></p>
+        </div>
+    </div>
+
+    <div class="container slide-up" id="quizContainer" style="display: none;">
+        <header class="quiz-header">
+            <div>
+                <h2 style="margin-bottom: 0;" id="subjectTitle">Quiz</h2>
+                <p class="text-muted" id="questionCounter">Question 1 of 10</p>
+            </div>
+            <div class="timer" id="timerDisplay">
+                <i class="fas fa-clock"></i> <span>10:00</span>
+            </div>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="glass-card" style="margin-bottom: 2rem;">
+            <h3 id="questionText">Loading question...</h3>
+            
+            <div class="options-container" id="optionsContainer">
+                <!-- Options injected via JS -->
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between;">
+            <button id="prevBtn" class="btn btn-secondary" style="width: auto; visibility: hidden;"><i class="fas fa-arrow-left"></i> Previous</button>
+            <button id="nextBtn" class="btn" style="width: auto;">Next <i class="fas fa-arrow-right"></i></button>
+            <button id="submitBtn" class="btn" style="width: auto; display: none;"><i class="fas fa-check-circle"></i> Submit Quiz</button>
+        </div>
+    </div>
+
+    <!-- Result View -->
+    <div class="container slide-up" id="resultContainer" style="display: none; text-align: center;">
+        <div class="glass-card" style="max-width: 600px; margin: 0 auto;">
+            <h2>Quiz Complete!</h2>
+            <div style="margin: 2rem 0;">
+                <div style="position: relative; width: 150px; height: 150px; margin: 0 auto;">
+                    <!-- Simple animated circle using conic-gradient -->
+                    <div id="scoreCircle" style="width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(var(--success) 0%, transparent 0%); display: flex; align-items: center; justify-content: center;">
+                        <div style="background: var(--bg-card); width: 120px; height: 120px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                            <h2 style="margin: 0; color: var(--success);" id="scorePercentage">0%</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">You scored <b id="scoreValue"></b> out of <b id="totalValue"></b></p>
+            
+            <button id="returnDashboardBtn" class="btn btn-secondary">Return to Dashboard</button>
+        </div>
+    </div>
+
+    <script src="js/quiz.js"></script>
+</body>
+</html>
