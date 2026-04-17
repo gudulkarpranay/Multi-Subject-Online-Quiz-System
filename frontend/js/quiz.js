@@ -7,15 +7,19 @@ $(document).ready(function() {
         return;
     }
 
-    const urlParams = new URLSearchParams(window.search);
+    const urlParams = new URLSearchParams(window.location.search);
     const subject = urlParams.get('subject') || 'General';
-    $('#subjectTitle').text(subject + ' Quiz');
+    const examType = urlParams.get('exam_type') || 'mid_sem';
+    
+    // Formatting title based on exam type
+    const examLabel = examType === 'mid_sem' ? 'Mid Sem' : 'End Sem';
+    $('#subjectTitle').text(`${subject} - ${examLabel} Exam`);
 
     let questions = [];
     let currentIndex = 0;
     let score = 0;
     let timerInterval;
-    let timeLeft = 600; // 10 minutes in seconds
+    let timeLeft = examType === 'end_sem' ? 1200 : 900; // 20 mins or 15 mins
 
     // Practical Requirement: AJAX (load quiz questions dynamically without page reload)
     // For now we simulate an AJAX call that will eventually hit backend/api/get_questions.php
@@ -25,7 +29,7 @@ $(document).ready(function() {
         $.ajax({
             url: '../backend/api/get_questions.php',
             type: 'GET',
-            data: { subject: subject },
+            data: { subject: subject, exam_type: examType },
             dataType: 'json',
             success: function(data) {
                 if(data && data.length > 0) {
@@ -149,6 +153,7 @@ $(document).ready(function() {
         const payload = {
             user_id: user.id || 1, // mock user id
             subject: subject,
+            exam_type: examType,
             score: score,
             percentage: percentage
         };

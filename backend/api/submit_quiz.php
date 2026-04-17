@@ -14,12 +14,13 @@ if(isset($data['subject']) && isset($data['score'])) {
     
     $userId = isset($data['user_id']) ? $data['user_id'] : 1; // Default fallback
     $subject = $data['subject'];
+    $exam_type = isset($data['exam_type']) ? $data['exam_type'] : 'mid_sem';
     $score = $data['score'];
     $percentage = $data['percentage'];
     
     try {
-        $stmt = $pdo->prepare("INSERT INTO results (user_id, subject, score, percentage) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$userId, $subject, $score, $percentage]);
+        $stmt = $pdo->prepare("INSERT INTO results (user_id, subject, exam_type, score, percentage) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$userId, $subject, $exam_type, $score, $percentage]);
         
         echo json_encode(["status" => "success", "message" => "Result saved successfully"]);
     } catch(PDOException $e) {

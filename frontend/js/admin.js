@@ -16,6 +16,7 @@ $(document).ready(function() {
         e.preventDefault();
 
         const subject = $('#qSubject').val();
+        const examType = $('#qExamType').val();
         const question = $('#qText').val();
         const op1 = $('#qOpt1').val();
         const op2 = $('#qOpt2').val();
@@ -32,6 +33,7 @@ $(document).ready(function() {
 
         const payload = {
             subject: subject,
+            exam_type: examType,
             question: question,
             option1: op1,
             option2: op2,

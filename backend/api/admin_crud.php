@@ -14,10 +14,13 @@ if ($method === 'POST') {
     $data = json_decode($json, true);
     
     if(isset($data['subject']) && isset($data['question'])) {
+        $exam_type = isset($data['exam_type']) ? $data['exam_type'] : 'mid_sem';
+
         try {
-            $stmt = $pdo->prepare("INSERT INTO questions (subject, question, option1, option2, option3, option4, answer) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO questions (subject, exam_type, question, option1, option2, option3, option4, answer) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([
                 $data['subject'], 
+                $exam_type,
                 $data['question'], 
                 $data['option1'], 
                 $data['option2'], 

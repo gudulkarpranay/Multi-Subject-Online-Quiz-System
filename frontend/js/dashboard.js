@@ -52,12 +52,73 @@ $(document).ready(function() {
     );
 
     // Click handler for subjects
+    let selectedSubject = '';
     $('.subject-card').click(function() {
-        const subject = $(this).data('subject');
+        selectedSubject = $(this).data('subject');
+        $('#modalSubjectTitle').text($(this).find('h3').text());
+        $('#examModal').css('display', 'flex');
+    });
+
+    // Close modal
+    $('.close-modal').click(function() {
+        $('#examModal').hide();
+    });
+
+    // Handle exam type selection
+    $('.exam-btn').click(function() {
+        if (!selectedSubject) return;
+        const examType = $(this).data('type');
         
-        // jQuery FadeOut effect before navigating
+        // Hide modal and fade out
+        $('#examModal').hide();
         $('body').fadeOut(400, function() {
-            window.location.href = `quiz.html?subject=${subject}`;
+            window.location.href = `quiz.html?subject=${selectedSubject}&exam_type=${examType}`;
         });
+    });
+    // Fetch User Activity History
+    $.ajax({
+        url: '../backend/api/get_user_results.php',
+        type: 'GET',
+        data: { user_id: user.id || 1 },
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 'success' && response.data.length > 0) {
+                const results = response.data;
+                $('#totalTests').text(results.length);
+                
+                let sumPercentage = 0;
+                let historyHtml = '<ul style="list-style:none; padding:0; margin:0;">';
+                
+                results.forEach(result => {
+                    sumPercentage += parseFloat(result.percentage);
+                    let badgeColor = result.percentage >= 40 ? 'var(--success)' : 'var(--danger)';
+                    let examTypeStr = result.exam_type === 'mid_sem' ? 'Mid Sem' : 'End Sem';
+                    
+                    historyHtml += `
+                        <li style="padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <strong style="color: var(--primary);">${result.subject}</strong> - ${examTypeStr}<br>
+                                <small class="text-muted"><i class="far fa-calendar-alt"></i> ${result.date}</small>
+                            </div>
+                            <div style="text-align: right;">
+                                <strong>Score: ${result.score}</strong><br>
+                                <span style="color: ${badgeColor}; font-weight: bold;">${result.percentage}%</span>
+                            </div>
+                        </li>
+                    `;
+                });
+                
+                historyHtml += '</ul>';
+                
+                let avg = sumPercentage / results.length;
+                $('#averageScore').text(avg.toFixed(1) + '%');
+                $('#activityHistory').html(historyHtml);
+            } else {
+                $('#activityHistory').html('<p class="text-muted">No test attempts found yet. Take a test below!</p>');
+            }
+        },
+        error: function() {
+            $('#activityHistory').html('<p class="text-muted" style="color:var(--danger)">Failed to load activity history.</p>');
+        }
     });
 });

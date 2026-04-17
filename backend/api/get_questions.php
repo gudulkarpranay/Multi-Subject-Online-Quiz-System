@@ -6,14 +6,17 @@ require_once '../config/db.php';
 
 if(isset($_GET['subject'])) {
     $subject = $_GET['subject'];
+    $exam_type = isset($_GET['exam_type']) ? $_GET['exam_type'] : 'mid_sem';
+    
+    // Determine limit based on exam type
+    $limit = ($exam_type === 'end_sem') ? 20 : 15;
     
     try {
-        $stmt = $pdo->prepare("SELECT id, subject, question, option1, option2, option3, option4, answer FROM questions WHERE subject = ? ORDER BY RAND() LIMIT 10");
-        $stmt->execute([$subject]);
+        $stmt = $pdo->prepare("SELECT id, subject, exam_type, question, option1, option2, option3, option4, answer FROM questions WHERE subject = ? AND exam_type = ? ORDER BY RAND() LIMIT " . $limit);
+        $stmt->execute([$subject, $exam_type]);
         
         $questions = $stmt->fetchAll();
         
-        // Structure the options as an array to make it easier for frontend (or keep flat, js currently handles either)
         $formatted = [];
         foreach($questions as $q) {
             $formatted[] = [
